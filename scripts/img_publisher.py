@@ -175,7 +175,7 @@ def get_sim_pose(client):
 def convert_posestamped_to_odom_msg(sim_pose_msg):
     # populate odom ros message
     odom_msg = Odometry()
-    odom_msg.pose = sim_pose_msg.pose
+    odom_msg.pose.pose = sim_pose_msg.pose
     odom_msg.header.frame_id = "world"
     odom_msg.child_frame_id = "base_link"
 
@@ -191,7 +191,6 @@ def get_image_messages(client):
     # convert scene uint8 array to NumPy 2D array using
     scene_img1d = np.fromstring(responses[0].image_data_uint8, dtype=np.uint8)         # get numpy array
     scene_img_rgba = scene_img1d.reshape(responses[0].height, responses[0].width, 4)   # reshape array to image array H X W
-    scene_img_rgba = np.flipud(scene_img_rgba)                                         # original image is fliped vertically
 
     # convert depth float array to NumPy 2D array using
     depth_img = airsim.list_to_2d_float_array(responses[1].image_data_float, responses[1].width, responses[1].height)

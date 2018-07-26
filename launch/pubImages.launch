@@ -1,0 +1,20 @@
+<launch>
+
+  <node pkg="airsim_ros_wrapper"
+    type="img_publisher.py"
+    name="airsim_img_publisher"
+    output="screen" >
+
+    <!-- RGB camera parameters (parameters when calibrated) -->
+    <param name="Fx" value="360"/>
+    <param name="Fy" value="360"/>
+    <param name="cx" value="360"/>
+    <param name="cy" value="240"/>
+    <param name="width" value="640"/>  <!-- Width when calibrated!-->
+    <param name="height" value="480"/> <!-- Height when calibrated!-->
+
+    <param name="loop_rate" value="50"/>
+
+  </node>
+
+</launch>

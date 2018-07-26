@@ -1,0 +1,9 @@
+<launch>
+
+    <!-- Node to publish images from airsim client node -->
+    <include file="$(find airsim_ros_wrapper)/launch/pubImages.launch"/>
+
+     <!-- Convert to colored point cloud -->
+     <include file="$(find airsim_ros_wrapper)/launch/include/rgbPointCloudConverter.launch"/>
+
+</launch>

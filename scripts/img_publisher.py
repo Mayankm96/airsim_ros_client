@@ -110,9 +110,10 @@ def numpy_to_image(arr, encoding):
 
 def publish_tf_msg(sim_pose_msg):
     br = tf.TransformBroadcaster()
-    br.sendTransform(sim_pose_msg.pose.position, sim_pose_msg.pose.orientation,
+    br.sendTransform((sim_pose_msg.pose.position.x, sim_pose_msg.pose.position.y, sim_pose_msg.pose.position.z),
+					 (sim_pose_msg.pose.orientation.w, sim_pose_msg.pose.orientation.x, sim_pose_msg.pose.orientation.y, sim_pose_msg.pose.orientation.z),
 					 sim_pose_msg.header.stamp,
-                     "world", "base_link")
+                     "base_link", "world")
 
 def get_camera_params():
     # read parameters
@@ -230,10 +231,10 @@ def airpub():
 
         # publish message
         pose_pub.publish(sim_pose_msg)
-		publish_tf_msg(sim_pose_msg)
+        publish_tf_msg(sim_pose_msg)
         odom_pub.publish(odom_msg)
-		rgb_cam_pub.publish(camera_info_msg)
-		depth_cam_pub.publish(camera_info_msg)
+        rgb_cam_pub.publish(camera_info_msg)
+        depth_cam_pub.publish(camera_info_msg)
         rgb_pub.publish(rgb_msg)
         depth_pub.publish(depth_msg)
 

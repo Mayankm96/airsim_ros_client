@@ -7,7 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   geometry_msgs
   nav_msgs
-  tf
+  tf2_ros
 )
 
 ###################################
@@ -17,7 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES airsim_python_wrapper
-#  CATKIN_DEPENDS rospy sensor_msgs geometry_msgs nav_msgs tf
+#  CATKIN_DEPENDS rospy sensor_msgs geometry_msgs nav_msgs tf2_ros
 #  DEPENDS system_lib
 )
 

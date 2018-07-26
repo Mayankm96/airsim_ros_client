@@ -10,12 +10,13 @@ import numpy as np
 from numpy.lib.stride_tricks import as_strided
 # ROS
 import rospy
-import tf
+import tf2_ros
 # ROS Image message
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import CameraInfo
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import TransformStamped
 
 # Source: https://github.com/eric-wieser/ros_numpy/blob/master/src/ros_numpy/image.py
 name_to_dtypes = {
@@ -109,11 +110,22 @@ def numpy_to_image(arr, encoding):
 	return im
 
 def publish_tf_msg(sim_pose_msg):
-    br = tf.TransformBroadcaster()
-    br.sendTransform((sim_pose_msg.pose.position.x, sim_pose_msg.pose.position.y, sim_pose_msg.pose.position.z),
-					 (sim_pose_msg.pose.orientation.w, sim_pose_msg.pose.orientation.x, sim_pose_msg.pose.orientation.y, sim_pose_msg.pose.orientation.z),
-					 sim_pose_msg.header.stamp,
-                     "base_link", "world")
+    br = tf2_ros.TransformBroadcaster()
+
+    t = TransformStamped()
+    # populate tf ros message
+    t.header.stamp = sim_pose_msg.header.stamp
+    t.header.frame_id = "world"
+    t.child_frame_id = "base_link"
+    t.transform.translation.x = sim_pose_msg.pose.position.x
+    t.transform.translation.y = sim_pose_msg.pose.position.y
+    t.transform.translation.z = sim_pose_msg.pose.position.z
+    t.transform.rotation.x = sim_pose_msg.pose.orientation.x
+    t.transform.rotation.y = sim_pose_msg.pose.orientation.y
+    t.transform.rotation.z = sim_pose_msg.pose.orientation.z
+    t.transform.rotation.w = sim_pose_msg.pose.orientation.w
+
+    br.sendTransform(t)
 
 def get_camera_params():
     # read parameters

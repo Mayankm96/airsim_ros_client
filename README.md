@@ -8,8 +8,6 @@ The `airsim_ros_wrapper` package has been tested under ROS Kinetic and Ubuntu 16
 
 ## Installation
 
-### Building from Source
-
 #### Dependencies
 
 Install the python APIs for AirSim
@@ -19,21 +17,25 @@ pip install airsim
 
 #### Building
 * To build from source, clone the latest version from this repository into your catkin workspace
-```
+```bash
+mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
-https://github.com/Mayankm96/airsim_ros_wrapper.git
+git clone https://github.com/Mayankm96/airsim_ros_wrapper.git
 ```
-* In order to run AirSim, you will have to change the `Airsim_ip` and `Airsim_port` parameters to match the IP/Ports in which Airsim is running. All these informations can be found in the `settings.json` file (located at `~/Documents/AirSim`) for your Airsim configuration. The ports you are looking for are the "LogViewerPort" and the "UdpPort". Note that the settings.json file have to be configured such that "LogViewerHostIp" and "UdpIp" both have the IP of the computer that will run AirSim.
-
 * To compile the package:
-```
+```bash
 cd ~/catkin_ws
 catkin_make
+source devel/setup.bash
 ```
 
-## Usage
+#### Running AirSim in Unreal Engine
 
 Before running the nodes in the package, you need to run Airsim plugin in the Unreal Engine. In case you are unfamiliar on how to do so, refer to the tutorials available [here](https://github.com/Microsoft/AirSim#tutorials).
+
+A sample `settings.json` file used to run the simulator with the ROS package is available [here](docs/settings.json). Copy it to the `~/Documents/AirSim` directory to use the package without any further modifications.
+
+## Usage
 
 ### Running the `tf` publisher of drone model (DJI M100)
 
@@ -53,7 +55,7 @@ roslaunch airsim_ros_wrapper pubImages.launch
 
 ## Nodes
 
-### airsim_imgPublisher
+### airsim_img_publisher
 
 This is a client node at ([`img_publisher.py`](scripts/img_publisher.py)) interfaces with the AirSim plugin to retrieve the drone's pose and camera images **(rgb, depth)**.
 
@@ -61,11 +63,11 @@ This is a client node at ([`img_publisher.py`](scripts/img_publisher.py)) interf
 
 * **`/airsim/rgb/image_raw`** ([sensor_msgs/Image])
 
-	The rgb camera images.
+	The rgb camera images in `rgba8` encoding.
 
 * **`/airsim/depth`** ([sensor_msgs/Image])
 
-	The depth camera images in 32FC1 encoding.
+	The depth camera images in `32FC1` encoding.
 
 * **`/airsim/camera_info`** ([sensor_msgs/CameraInfo])
 
@@ -75,18 +77,24 @@ This is a client node at ([`img_publisher.py`](scripts/img_publisher.py)) interf
 
   The depth camera paramters.
 
+* **`/airsim/pose`** ([geometry_msgs/PoseStamped])
+
+	The position/orientation of the quadcoper (`base_link`)
+
+* **`/odom`** ([nav_msgs/Odometry])
+
+	The odometry of the quadcoper (`base_link`) in the `world` frame
+
 * **`/tf`**
 
   tf tree with the origin (`world`), the position/orientation of the quadcoper (`base_link`)
 
-* **`/odom`** ([nav_msgs/Odometry])
-
-  the odometry of the quadcoper (`base_link`) in the `world` frame
-
-* **`/airsim/pose`** ([geometry_msgs/PoseStamped])
-
-  the position/orientation of the quadcoper (`base_link`)
 
 #### Parameters
 * **Camera parameters:** `Fx`, `Fy`, `cx`, `cz`, `width`, `height`
 * **Publishing frequency:** `loop_rate`
+
+[sensor_msgs/Image]: http://docs.ros.org/api/sensor_msgs/html/msg/Image.html
+[sensor_msgs/CameraInfo]: http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html
+[geometry_msgs/PoseStamped]: http://docs.ros.org/melodic/api/geometry_msgs/html/msg/PoseStamped.html
+[nav_msgs/Odometry]: http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html

@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 
+# airsim
 import setup_path
 import airsim
-
-import rospy
+# standard python
 import math
 import sys
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
-
+# ROS
+import rospy
+import tf
 # ROS Image message
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import CameraInfo
@@ -105,6 +107,12 @@ def numpy_to_image(arr, encoding):
 	)
 
 	return im
+
+def publish_tf_msg(sim_pose_msg):
+    br = tf.TransformBroadcaster()
+    br.sendTransform(sim_pose_msg.pose.position, sim_pose_msg.pose.orientation,
+					 sim_pose_msg.header.stamp,
+                     "world", "base_link")
 
 def get_camera_params():
     # read parameters
@@ -221,10 +229,11 @@ def airpub():
         depth_msg.header = camera_info_msg.header
 
         # publish message
-        rgb_cam_pub.publish(camera_info_msg)
-        depth_cam_pub.publish(camera_info_msg)
         pose_pub.publish(sim_pose_msg)
+		publish_tf_msg(sim_pose_msg)
         odom_pub.publish(odom_msg)
+		rgb_cam_pub.publish(camera_info_msg)
+		depth_cam_pub.publish(camera_info_msg)
         rgb_pub.publish(rgb_msg)
         depth_pub.publish(depth_msg)
 

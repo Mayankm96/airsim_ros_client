@@ -152,11 +152,23 @@ def get_camera_params():
     camera_info_msg.header.frame_id = "front_center_optical"
     return camera_info_msg
 
+def convert_ned_to_enu(pos_ned, orientation_ned):
+	pos_enu = airsim.Vector3r(pos_ned.x_val,
+							- pos_ned.y_val,
+							- pos_ned.z_val)
+	orientation_enu = airsim.Quaternionr(orientation_ned.w_val,
+									   - orientation_ned.z_val,
+										 orientation_ned.x_val,
+										 orientation_ned.y_val)
+	return pos_enu, orientation_ned
+
 def get_sim_pose(client):
     # get state of the multirotor
     drone_state = client.getMultirotorState()
-    pos = drone_state.kinematics_estimated.position
-    orientation = drone_state.kinematics_estimated.orientation
+    pos_ned = drone_state.kinematics_estimated.position
+    orientation_ned = drone_state.kinematics_estimated.orientation
+
+    pos, orientation = convert_ned_to_enu(pos_ned, orientation_ned)
 
     # populate PoseStamped ros message
     sim_pose_msg = PoseStamped()

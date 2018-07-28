@@ -10,8 +10,9 @@ The `airsim_ros_wrapper` package has been tested under ROS Kinetic and Ubuntu 16
 
 #### Dependencies
 
-Install the python APIs for AirSim
-```
+Install the python depenencies:
+```bash
+# AirSim APIs
 pip install airsim
 ```
 

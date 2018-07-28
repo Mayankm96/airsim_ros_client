@@ -12,7 +12,7 @@
 
 		<!-- fixed map frame (set to 'map' if SLAM or localization running!) -->
 		<param name="frame_id" type="string" value="world" />
-		<param name="base_frame_id" value="base_link" />
+		<param name="base_frame_id" value="front_center_optical" />
 
 		<!-- maximum range to integrate (speedup!) -->
 		<param name="sensor_model/max_range" value="100" />

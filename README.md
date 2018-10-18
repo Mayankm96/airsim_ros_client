@@ -95,7 +95,21 @@ This is a client node at ([`img_publisher.py`](scripts/img_publisher.py)) interf
 * **Camera parameters:** `Fx`, `Fy`, `cx`, `cz`, `width`, `height`
 * **Publishing frequency:** `loop_rate`
 
+### airsim_follow_trajectory
+
+This is a client node at ([`follow_trajectory.py`](scripts/follow_trajectory.py)) interfaces with the AirSim plugin to follow a trajectory.
+
+#### Subscribed Topics
+
+* **`/trajectory/spline_marker_array`** ([visualization_msgs/MarkerArray])
+
+	An array of waypoints to follow.
+
+#### Parameters
+* **Velocity:** `velocity`
+
 [sensor_msgs/Image]: http://docs.ros.org/api/sensor_msgs/html/msg/Image.html
 [sensor_msgs/CameraInfo]: http://docs.ros.org/api/sensor_msgs/html/msg/CameraInfo.html
 [geometry_msgs/PoseStamped]: http://docs.ros.org/melodic/api/geometry_msgs/html/msg/PoseStamped.html
 [nav_msgs/Odometry]: http://docs.ros.org/melodic/api/nav_msgs/html/msg/Odometry.html
+[visualization_msgs/MarkerArray]: http://docs.ros.org/melodic/api/visualization_msgs/html/msg/MarkerArray.html/Odometry.html

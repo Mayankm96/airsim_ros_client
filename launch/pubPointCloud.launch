@@ -1,7 +1,7 @@
 <launch>
 
     <!-- Node to publish images from airsim client node -->
-    <include file="$(find airsim_ros_wrapper)/launch/pubImages.launch"/>
+    <include file="$(find airsim_ros_client)/launch/pubImages.launch"/>
 
     <!-- Nodelet manager for this pipeline -->
     <node pkg="nodelet" type="nodelet" args="manager" name="airsim_depth_transforms_manager" output="screen"/>

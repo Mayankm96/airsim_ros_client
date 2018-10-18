@@ -130,11 +130,11 @@ def publish_tf_msg(sim_pose_msg):
 def get_camera_params():
     # read parameters
     width = rospy.get_param('~width', 640)
-    height = rospy.get_param('~height', 480)
-    Fx = rospy.get_param('~Fx', 360)
-    Fy = rospy.get_param('~Fy', 360)
-    Cx = rospy.get_param('~Cx', 360)
-    Cy = rospy.get_param('~Cy', 240)
+    height = rospy.get_param('~height', 360)
+    Fx = rospy.get_param('~Fx', 320)
+    Fy = rospy.get_param('~Fy', 320)
+    Cx = rospy.get_param('~Cx', 320)
+    Cy = rospy.get_param('~Cy', 180)
 
     # create sensor message
     camera_info_msg = CameraInfo()
@@ -153,13 +153,13 @@ def get_camera_params():
     return camera_info_msg
 
 def convert_ned_to_enu(pos_ned, orientation_ned):
-	pos_enu = airsim.Vector3r(pos_ned.x_val,
-							- pos_ned.y_val,
-							- pos_ned.z_val)
-	orientation_enu = airsim.Quaternionr(orientation_ned.w_val,
-									   - orientation_ned.z_val,
-										 orientation_ned.x_val,
-										 orientation_ned.y_val)
+	pos_enu = airsim.Vector3r(  pos_ned.x_val,
+				  - pos_ned.y_val,
+				  - pos_ned.z_val)
+	orientation_enu = airsim.Quaternionr( orientation_ned.w_val,
+					    - orientation_ned.z_val,
+					    - orientation_ned.x_val,
+					      orientation_ned.y_val)
 	return pos_enu, orientation_ned
 
 def get_sim_pose(client):
@@ -228,7 +228,7 @@ def airpub():
     depth_cam_pub = rospy.Publisher("airsim/depth/camera_info", CameraInfo, queue_size=1)
     # odometry publisher
     odom_pub = rospy.Publisher("odom", Odometry, queue_size=1)
-    #pose publisher
+    # pose publisher
     pose_pub = rospy.Publisher("airsim/pose", PoseStamped, queue_size=1)
 
     ## Main --------------------------------------------------------------------

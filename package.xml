@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>airsim_ros_wrapper</name>
+  <name>airsim_ros_client</name>
   <version>0.0.1</version>
-  <description>The airsim_ros_wrapper package integrates ROS and AirSim plugin using the python APIs available for the simulator.</description>
+  <description>The airsim_ros_client package integrates ROS and AirSim plugin using the python APIs available for the simulator.</description>
 
   <maintainer email="mayankm.iitk@gmail.com">Mayank Mittal</maintainer>
 

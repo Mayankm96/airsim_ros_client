@@ -1,10 +1,10 @@
-# airsim_ros_wrapper
+# airsim_ros_client
 
 ## Overview
 
 This repository is meant to integrate ROS and AirSim plugin using the python APIs available for the simulator.
 
-The `airsim_ros_wrapper` package has been tested under ROS Kinetic and Ubuntu 16.04LTS. The source code is released under [MIT Licence](LICENSE).
+The `airsim_ros_client` package has been tested under ROS Kinetic and Ubuntu 16.04LTS. The source code is released under [MIT Licence](LICENSE).
 
 ## Installation
 

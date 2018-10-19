@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro"
        name="dji_m100_frame" >
 
-  <xacro:include filename="$(find airsim_ros_wrapper)/urdf/materials.urdf.xacro" />
+  <xacro:include filename="$(find airsim_ros_client)/urdf/materials.urdf.xacro" />
 
   <xacro:property name="M_PI" value="3.1415926535897931" />
 
@@ -26,7 +26,7 @@
       <visual>
         <origin xyz="-0.35 -0.25 -0.14" rpy="${M_PI/2} 0 ${M_PI/2}" />
         <geometry>
-          <mesh filename="package://airsim_ros_wrapper/meshes/DJI_M100_CAD.STL" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://airsim_ros_client/meshes/DJI_M100_CAD.STL" scale="0.001 0.001 0.001"/>
         </geometry>
         <material name="Black" />
       </visual>

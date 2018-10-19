@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="model" default="$(find airsim_ros_wrapper)/urdf/robot/dji_m100_airsim.urdf.xacro" />
+  <arg name="model" default="$(find airsim_ros_client)/urdf/robot/dji_m100_airsim.urdf.xacro" />
   <arg name="gui" default="false" />
 
   <!-- Parsing xacro and loading robot_description parameter -->
